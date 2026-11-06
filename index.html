@@ -171,10 +171,32 @@ footer a,.text-link,.cover-secondary,.cover-figure a,.feedback-links a,.source-c
 .mistake-card>.btn {flex:none}
 .formula-grid,.paper-cards {grid-template-columns:repeat(3,minmax(0,1fr))}
 .formula-card,.source-card {padding:16px 0;border-top:2px solid var(--ink)}
-.formula-card h3,.formula-row b {font:500 25px/1.6 var(--serif);color:var(--teal)}
+.formula-card h3 {font:600 16px/1.5 var(--font);color:var(--ink)}
 .formula-topic,.formula-card p,.source-card p,.source-card a {font-size:13px;color:var(--muted)}
 .formula-card h3 {margin:8px 0}
 .formula-card .meaning,.source-card h3 {margin-bottom:6px}
+/* The same book entry is used in quick lookup, topic notes and print. */
+.formula-books {display:flex;gap:6px 16px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:20px 0}
+.formula-books a {display:flex;align-items:baseline;gap:.55em;flex-wrap:wrap;padding:9px 3px;border-bottom:3px solid transparent}
+.formula-books a span {font-size:13px;color:var(--muted)}
+.formula-books a[aria-current] {border-color:var(--teal);color:var(--teal)}
+.formula-volume {margin:20px 0}
+.formula-volume h2 {font:600 21px var(--serif);margin:24px 0 12px}
+.formula-chapter {border-bottom:1px solid var(--line)}
+.formula-chapter summary {padding:14px 0;font-size:17px;font-weight:600;color:var(--ink)}
+.formula-chapter summary::marker {color:var(--teal)}
+.formula-chapter .formula-grid {grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));column-gap:24px;row-gap:0}
+.formula-volume .formula-card,.topic-formulas .formula-card {min-width:0;border:0;border-top:1px solid var(--line);padding:12px 0 16px}
+.formula-card h3 {margin:0 0 5px}
+.book-equation {max-width:100%;overflow-x:auto;padding:6px 1px 8px;color:var(--teal);font-size:clamp(17px,1.4vw,22px)}
+.book-equation math {display:block;width:max-content;font-family:math}
+.formula-card small {display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.topic-formulas {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,265px),1fr));gap:0 20px}
+@media(max-width:640px) {
+  .formula-books {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .formula-books a {display:block}
+  .formula-books a span {display:block;font-size:12px}
+}
 .source-grid {grid-template-columns:repeat(2,minmax(0,1fr));margin:24px 0}
 .source-notes h3,.paper-guide h2 {color:var(--ink)}
 .paper-hero {display:flex;align-items:center;justify-content:space-between;gap:24px;border-block:1px solid var(--line);padding:22px 0;margin:0 0 24px}
@@ -270,7 +292,12 @@ dialog::backdrop {background:rgb(23 36 45 / .45)}
 @media print {
   .sidebar,.topbar,footer,.toolbar,.skip,#toast {display:none!important}
   .app-shell {margin:0} main {padding:0} body {background:white}
-  .formula-grid {grid-template-columns:repeat(2,1fr)} .formula-card {break-inside:avoid}
+  .formula-books {display:none}
+  .formula-chapter .formula-grid {display:block;columns:2;column-gap:24px}
+  .formula-card {break-inside:avoid}
+  .formula-chapter summary,.formula-volume h2 {break-after:avoid}
+  .formula-chapter summary::marker {content:''}
+  .book-equation {font-size:15px;overflow:visible}
 }</style><style>/* The apparatus, its readouts and the ruled record sheet form one workbench. */
 .real-labs {
   --rl-ink: #192d40;
@@ -1069,24 +1096,211 @@ window.PHYSICS_CONTENT = {
       ],
       "formulas": [
         {
-          "formula": "v̄ = total distance / total time",
-          "meaning": "平均速率，包含停留时间",
-          "units": "m s⁻¹"
+          "meaning": "平均速率",
+          "formula": "平均速率 = 总路程 / 总时间",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>平均速率</mtext><mo>=</mo><mfrac><mtext>总路程</mtext><mtext>总时间</mtext></mfrac></mrow></math>",
+          "book": 1,
+          "pages": [
+            3,
+            30
+          ],
+          "chapter": "运动",
+          "order": 3,
+          "condition": "",
+          "keywords": "Average speed = total distance travelled / total time. · Motion & graphs"
         },
         {
-          "formula": "a = (v − u) / t",
-          "meaning": "速度变化率；u 初速度、v 末速度",
-          "units": "m s⁻²"
+          "meaning": "平均速度",
+          "formula": "平均速度 = 总位移 / 总时间",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>平均速度</mtext><mo>=</mo><mfrac><mtext>总位移</mtext><mtext>总时间</mtext></mfrac></mrow></math>",
+          "book": 1,
+          "pages": [
+            3,
+            30
+          ],
+          "chapter": "运动",
+          "order": 4,
+          "condition": "",
+          "keywords": "Average velocity = total displacement / total time. · Motion & graphs"
         },
         {
-          "formula": "s = ½(u + v)t",
-          "meaning": "匀加速时的位移，等于梯形面积",
-          "units": "m"
+          "meaning": "平均加速度",
+          "formula": "a = Δv / Δt = (v − u) / t",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>a</mi><mo>=</mo><mfrac><mrow><mi mathvariant=\"normal\">Δ</mi><mi>v</mi></mrow><mrow><mi mathvariant=\"normal\">Δ</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>v</mi><mo>−</mo><mi>u</mi></mrow><mi>t</mi></mfrac></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            32
+          ],
+          "chapter": "运动",
+          "order": 5,
+          "condition": "",
+          "keywords": "a = Δv/Δt = (v − u)/t · Motion & graphs"
         },
         {
+          "meaning": "位移–时间图的斜率",
+          "formula": "速度 = 位移–时间图的斜率",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>速度</mtext><mo>=</mo><mtext>位移–时间图的斜率</mtext></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            36
+          ],
+          "chapter": "运动",
+          "order": 6,
+          "condition": "",
+          "keywords": "s vs t graph: Gradient = velocity · Motion & graphs"
+        },
+        {
+          "meaning": "速度–时间图的斜率",
+          "formula": "加速度 = 速度–时间图的斜率",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>加速度</mtext><mo>=</mo><mtext>速度–时间图的斜率</mtext></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            36
+          ],
+          "chapter": "运动",
+          "order": 7,
+          "condition": "",
+          "keywords": "v vs t graph: Gradient = acceleration · Motion & graphs"
+        },
+        {
+          "meaning": "速度–时间图的面积",
+          "formula": "位移 = 速度–时间图与时间轴之间的有向面积",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>位移</mtext><mo>=</mo><mtext>速度–时间图的有向面积</mtext></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            36
+          ],
+          "chapter": "运动",
+          "order": 8,
+          "condition": "时间轴下方取负",
+          "keywords": "v vs t graph: Area = displacement · Motion & graphs"
+        },
+        {
+          "meaning": "路程–时间图的斜率",
+          "formula": "速率 = 路程–时间图的斜率",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>速率</mtext><mo>=</mo><mtext>路程–时间图的斜率</mtext></mrow></math>",
+          "book": 1,
+          "pages": [
+            108
+          ],
+          "chapter": "运动",
+          "order": 9,
+          "condition": "",
+          "keywords": "Distance–Time Graph: speed = gradient = rise / run · Motion & graphs"
+        },
+        {
+          "meaning": "速率–时间图的面积",
+          "formula": "路程 = 速率–时间图线下的面积",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>路程</mtext><mo>=</mo><mtext>速率–时间图线下的面积</mtext></mrow></math>",
+          "book": 1,
+          "pages": [
+            108
+          ],
+          "chapter": "运动",
+          "order": 10,
+          "condition": "",
+          "keywords": "Speed–Time Graph: distance travelled = area under graph · Motion & graphs"
+        },
+        {
+          "meaning": "末速度与时间",
+          "formula": "v = u + at",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>v</mi><mo>=</mo><mi>u</mi><mo>+</mo><mi>a</mi><mi>t</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            41
+          ],
+          "chapter": "运动",
+          "order": 11,
+          "condition": "匀加速直线运动",
+          "keywords": "v = u + at · SUVAT 匀加速 · Motion & graphs"
+        },
+        {
+          "meaning": "位移与初速度",
+          "formula": "s = ut + ½at²",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>s</mi><mo>=</mo><mi>u</mi><mi>t</mi><mo>+</mo><mstyle displaystyle=\"false\" scriptlevel=\"0\"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mi>a</mi><msup><mi>t</mi><mn>2</mn></msup></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            41
+          ],
+          "chapter": "运动",
+          "order": 12,
+          "condition": "匀加速直线运动",
+          "keywords": "s = ut + ½at² · Motion & graphs"
+        },
+        {
+          "meaning": "速度与位移",
           "formula": "v² = u² + 2as",
-          "meaning": "学校讲义的匀加速扩展公式，无时间量",
-          "units": "所有量使用 SI 单位"
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msup><mi>v</mi><mn>2</mn></msup><mo>=</mo><msup><mi>u</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>a</mi><mi>s</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            41
+          ],
+          "chapter": "运动",
+          "order": 13,
+          "condition": "匀加速直线运动",
+          "keywords": "v² = u² + 2as · Motion & graphs"
+        },
+        {
+          "meaning": "位移与初末速度",
+          "formula": "s = ½(u + v)t",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>s</mi><mo>=</mo><mstyle displaystyle=\"false\" scriptlevel=\"0\"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo stretchy=\"false\">(</mo><mi>u</mi><mo>+</mo><mi>v</mi><mo stretchy=\"false\">)</mo><mi>t</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            3,
+            41
+          ],
+          "chapter": "运动",
+          "order": 14,
+          "condition": "匀加速直线运动",
+          "keywords": "s = ½(u + v)t · Motion & graphs"
+        },
+        {
+          "meaning": "匀速直线运动的位移",
+          "formula": "s = ut",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>s</mi><mo>=</mo><mi>u</mi><mi>t</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            3,
+            41
+          ],
+          "chapter": "运动",
+          "order": 15,
+          "condition": "加速度为零",
+          "keywords": "Use s = u t where acceleration = zero. · Motion & graphs"
+        },
+        {
+          "meaning": "向心加速度",
+          "formula": "a_c = v² / r",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>a</mi><mi>c</mi></msub><mo>=</mo><mfrac><msup><mi>v</mi><mn>2</mn></msup><mi>r</mi></mfrac></mrow></math>",
+          "book": 1,
+          "pages": [
+            9
+          ],
+          "chapter": "运动",
+          "order": 16,
+          "condition": "圆周运动",
+          "keywords": "a_c = v²/r · Motion & graphs"
+        },
+        {
+          "meaning": "向心力",
+          "formula": "F_c = ma_c = mv² / r",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>F</mi><mi>c</mi></msub><mo>=</mo><mi>m</mi><msub><mi>a</mi><mi>c</mi></msub><mo>=</mo><mfrac><mrow><mi>m</mi><msup><mi>v</mi><mn>2</mn></msup></mrow><mi>r</mi></mfrac></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            61
+          ],
+          "chapter": "运动",
+          "order": 17,
+          "condition": "圆周运动",
+          "keywords": "F_c = ma_c = mv²/r · Motion & graphs"
         }
       ],
       "pitfalls": [
@@ -1140,29 +1354,225 @@ window.PHYSICS_CONTENT = {
       ],
       "formulas": [
         {
-          "formula": "F = ma；W = mg",
-          "meaning": "合力与重量不是同一个量",
-          "units": "F、W：N；m：kg"
+          "meaning": "合力与加速度",
+          "formula": "F_net = ma",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>F</mi><mrow><mi mathvariant=\"normal\">n</mi><mi mathvariant=\"normal\">e</mi><mi mathvariant=\"normal\">t</mi></mrow></msub><mo>=</mo><mi>m</mi><mi>a</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            50
+          ],
+          "chapter": "力与力矩",
+          "order": 18,
+          "condition": "质量恒定",
+          "keywords": "Fnet = m x a · 牛顿第二定律 Newton F=ma · Forces & momentum"
         },
         {
-          "formula": "moment = Fd⊥",
-          "meaning": "d⊥ 是垂直力臂",
-          "units": "N m"
+          "meaning": "重量",
+          "formula": "W = mg",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>W</mi><mo>=</mo><mi>m</mi><mi>g</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            48
+          ],
+          "chapter": "力与力矩",
+          "order": 19,
+          "condition": "",
+          "keywords": "W = m g · Forces & momentum"
         },
         {
-          "formula": "p = mv；FΔt = Δp",
-          "meaning": "动量与合力的冲量",
-          "units": "kg m s⁻¹；N s"
-        },
-        {
-          "formula": "ρ = m/V；p = F/A；Δp = ρgh",
-          "meaning": "密度、固体压强、液柱压强差",
-          "units": "kg m⁻³；Pa = N m⁻²"
-        },
-        {
+          "meaning": "胡克定律 · 施加力的大小",
           "formula": "F = kx",
-          "meaning": "x 是伸长量，限于正比例区间",
-          "units": "k：N m⁻¹；x：m"
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>F</mi><mo>=</mo><mi>k</mi><mi>x</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            57,
+            109
+          ],
+          "chapter": "力与力矩",
+          "order": 20,
+          "condition": "比例限度内，x 是伸长或压缩量",
+          "keywords": "F = k x · Forces & momentum"
+        },
+        {
+          "meaning": "胡克定律 · 回复力",
+          "formula": "F = −kΔx",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>F</mi><mo>=</mo><mo>−</mo><mi>k</mi><mi mathvariant=\"normal\">Δ</mi><mi>x</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            9
+          ],
+          "chapter": "力与力矩",
+          "order": 21,
+          "condition": "比例限度内，回复力方向与形变相反",
+          "keywords": "F = −k Δx · Forces & momentum"
+        },
+        {
+          "meaning": "力矩",
+          "formula": "τ = Fd⊥",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>τ</mi><mo>=</mo><mi>F</mi><msub><mi>d</mi><mo lspace=\"0em\" rspace=\"0em\">⊥</mo></msub></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            65
+          ],
+          "chapter": "力与力矩",
+          "order": 22,
+          "condition": "d⊥ 为支点到力的作用线的垂距",
+          "keywords": "Moment = Force x Perpendicular distance from the pivot · Forces & momentum"
+        },
+        {
+          "meaning": "平衡条件",
+          "formula": "合力 = 0，合力矩 = 0",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>合力</mtext><mo>=</mo><mn>0</mn><mo separator=\"true\">,</mo><mspace width=\"1em\"/><mtext>合力矩</mtext><mo>=</mo><mn>0</mn></mrow></math>",
+          "book": 1,
+          "pages": [
+            69,
+            109
+          ],
+          "chapter": "力与力矩",
+          "order": 23,
+          "condition": "",
+          "keywords": "Sum of all Forces equals zero; Sum of all Moments equals zero. · Forces & momentum"
+        },
+        {
+          "meaning": "杠杆平衡",
+          "formula": "顺时针力矩之和 = 逆时针力矩之和",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>顺时针力矩之和</mtext><mo>=</mo><mtext>逆时针力矩之和</mtext></mrow></math>",
+          "book": 1,
+          "pages": [
+            109
+          ],
+          "chapter": "力与力矩",
+          "order": 24,
+          "condition": "关于同一支点",
+          "keywords": "clockwise moments equal anticlockwise · Forces & momentum"
+        },
+        {
+          "meaning": "动量",
+          "formula": "p⃗ = mv⃗",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mover accent=\"true\"><mi>p</mi><mo>⃗</mo></mover><mo>=</mo><mi>m</mi><mover accent=\"true\"><mi>v</mi><mo>⃗</mo></mover></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            73
+          ],
+          "chapter": "动量",
+          "order": 25,
+          "condition": "",
+          "keywords": "p = m v · Forces & momentum"
+        },
+        {
+          "meaning": "冲量与动量变化",
+          "formula": "冲量 = Δp⃗ = mv⃗ − mu⃗ = F_net Δt",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>冲量</mtext><mo>=</mo><mi mathvariant=\"normal\">Δ</mi><mover accent=\"true\"><mi>p</mi><mo>⃗</mo></mover><mo>=</mo><mi>m</mi><mover accent=\"true\"><mi>v</mi><mo>⃗</mo></mover><mo>−</mo><mi>m</mi><mover accent=\"true\"><mi>u</mi><mo>⃗</mo></mover><mo>=</mo><msub><mi>F</mi><mrow><mi mathvariant=\"normal\">n</mi><mi mathvariant=\"normal\">e</mi><mi mathvariant=\"normal\">t</mi></mrow></msub><mi mathvariant=\"normal\">Δ</mi><mi>t</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            4,
+            9,
+            75
+          ],
+          "chapter": "动量",
+          "order": 26,
+          "condition": "质量恒定，取这段时间的平均合力",
+          "keywords": "Impulse = Δp = mv − mu; Impulse = Fnet Δt · Forces & momentum"
+        },
+        {
+          "meaning": "动量守恒",
+          "formula": "m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>m</mi><mn>1</mn></msub><msub><mi>u</mi><mn>1</mn></msub><mo>+</mo><msub><mi>m</mi><mn>2</mn></msub><msub><mi>u</mi><mn>2</mn></msub><mo>=</mo><msub><mi>m</mi><mn>1</mn></msub><msub><mi>v</mi><mn>1</mn></msub><mo>+</mo><msub><mi>m</mi><mn>2</mn></msub><msub><mi>v</mi><mn>2</mn></msub></mrow></math>",
+          "book": 1,
+          "pages": [
+            77
+          ],
+          "chapter": "动量",
+          "order": 27,
+          "condition": "两物体沿同一直线运动，系统所受合外力为零",
+          "keywords": "m1 x u1 + m2 x u2 = m1 x v1 + m2 x v2 · conservation of momentum · Forces & momentum"
+        },
+        {
+          "meaning": "密度",
+          "formula": "ρ = m / V",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>ρ</mi><mo>=</mo><mfrac><mi>m</mi><mi>V</mi></mfrac></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            94
+          ],
+          "chapter": "密度与压强",
+          "order": 34,
+          "condition": "",
+          "keywords": "ρ = m/V · Forces & momentum"
+        },
+        {
+          "meaning": "浮力",
+          "formula": "B = ρgV",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>B</mi><mo>=</mo><mi>ρ</mi><mi>g</mi><mi>V</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            96
+          ],
+          "chapter": "密度与压强",
+          "order": 35,
+          "condition": "ρ 是流体密度，V 是排开流体的体积",
+          "keywords": "Buoyancy (upthrust): B = ρgV; Upthrust = weight of fluid displaced · Forces & momentum"
+        },
+        {
+          "meaning": "固体表面的压强",
+          "formula": "p = F / A",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>p</mi><mo>=</mo><mfrac><mi>F</mi><mi>A</mi></mfrac></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            99
+          ],
+          "chapter": "密度与压强",
+          "order": 36,
+          "condition": "F 垂直于受力面",
+          "keywords": "p = F/A · Forces & momentum"
+        },
+        {
+          "meaning": "液柱产生的压强",
+          "formula": "p = ρgh",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>p</mi><mo>=</mo><mi>ρ</mi><mi>g</mi><mi>h</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            99
+          ],
+          "chapter": "密度与压强",
+          "order": 37,
+          "condition": "h 为液面下的深度",
+          "keywords": "Pressure (hydrostatic): p = ρgh · Forces & momentum"
+        },
+        {
+          "meaning": "U 形管两侧的压强差",
+          "formula": "压强差 = 液面高度差 × ρ × g",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>压强差</mtext><mo>=</mo><mtext>液面高度差</mtext><mo>×</mo><mi>ρ</mi><mo>×</mo><mi>g</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            99,
+            110
+          ],
+          "chapter": "密度与压强",
+          "order": 38,
+          "condition": "ρ 为管内液体密度",
+          "keywords": "P_difference = h_difference x ρ x g · Forces & momentum"
+        },
+        {
+          "meaning": "水银气压计",
+          "formula": "p_atm = hρg",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>p</mi><mrow><mi mathvariant=\"normal\">a</mi><mi mathvariant=\"normal\">t</mi><mi mathvariant=\"normal\">m</mi></mrow></msub><mo>=</mo><mi>h</mi><mi>ρ</mi><mi>g</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            99
+          ],
+          "chapter": "密度与压强",
+          "order": 39,
+          "condition": "水银柱上方为真空，h 为柱高",
+          "keywords": "P_abs = hρg = P_atm · Forces & momentum"
         }
       ],
       "pitfalls": [
@@ -1216,29 +1626,86 @@ window.PHYSICS_CONTENT = {
       ],
       "formulas": [
         {
-          "formula": "Eₖ = ½mv²",
-          "meaning": "动能；先平方速率",
-          "units": "J"
-        },
-        {
-          "formula": "ΔEₚ = mgΔh",
-          "meaning": "靠近地表的重力势能变化",
-          "units": "J"
-        },
-        {
+          "meaning": "功",
           "formula": "W = Fd",
-          "meaning": "恒力与位移同向时",
-          "units": "J"
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>W</mi><mo>=</mo><mi>F</mi><mi>d</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            82
+          ],
+          "chapter": "功与能量",
+          "order": 28,
+          "condition": "d 为沿力方向的位移",
+          "keywords": "W = Fd; distance moved in direction of the force · Energy & power"
         },
         {
-          "formula": "P = E/t",
-          "meaning": "功率，1 W = 1 J s⁻¹",
-          "units": "W"
+          "meaning": "动能",
+          "formula": "E_k = ½mv²",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>E</mi><mi>k</mi></msub><mo>=</mo><mstyle displaystyle=\"false\" scriptlevel=\"0\"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mi>m</mi><msup><mi>v</mi><mn>2</mn></msup></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            83
+          ],
+          "chapter": "功与能量",
+          "order": 29,
+          "condition": "",
+          "keywords": "Kinetic: E_k = ½mv² · Energy & power"
         },
         {
-          "formula": "η = useful output / total input × 100%",
-          "meaning": "能量或功率用同种量比较",
-          "units": "%"
+          "meaning": "重力势能",
+          "formula": "E_p = mgh",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>E</mi><mi>p</mi></msub><mo>=</mo><mi>m</mi><mi>g</mi><mi>h</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            9,
+            83
+          ],
+          "chapter": "功与能量",
+          "order": 30,
+          "condition": "g 近似恒定，h 相对选定的零高度",
+          "keywords": "Grav potential: E_p = mgh · Energy & power"
+        },
+        {
+          "meaning": "弹性势能",
+          "formula": "E = ½k(Δx)²",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>E</mi><mo>=</mo><mstyle displaystyle=\"false\" scriptlevel=\"0\"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mi>k</mi><mo stretchy=\"false\">(</mo><mi mathvariant=\"normal\">Δ</mi><mi>x</mi><msup><mo stretchy=\"false\">)</mo><mn>2</mn></msup></mrow></math>",
+          "book": 1,
+          "pages": [
+            9
+          ],
+          "chapter": "功与能量",
+          "order": 31,
+          "condition": "弹簧满足胡克定律",
+          "keywords": "Elastic potential E = ½ k (Δx)² · Energy & power"
+        },
+        {
+          "meaning": "功率",
+          "formula": "P = W / t = E / t",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>P</mi><mo>=</mo><mfrac><mi>W</mi><mi>t</mi></mfrac><mo>=</mo><mfrac><mi>E</mi><mi>t</mi></mfrac></mrow></math>",
+          "book": 1,
+          "pages": [
+            4,
+            83
+          ],
+          "chapter": "功与能量",
+          "order": 32,
+          "condition": "",
+          "keywords": "P = E / t = W / t · Energy & power"
+        },
+        {
+          "meaning": "效率",
+          "formula": "效率 = 有用输出能量 / 总输入能量 × 100%",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>效率</mtext><mo>=</mo><mfrac><mtext>有用输出能量</mtext><mtext>总输入能量</mtext></mfrac><mo>×</mo><mn>100</mn><mi mathvariant=\"normal\">%</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            92,
+            109
+          ],
+          "chapter": "功与能量",
+          "order": 33,
+          "condition": "",
+          "keywords": "Useful energy output / Total energy input × 100 (%) · Energy & power"
         }
       ],
       "pitfalls": [
@@ -1292,24 +1759,148 @@ window.PHYSICS_CONTENT = {
       ],
       "formulas": [
         {
-          "formula": "E = mcΔT",
-          "meaning": "无相变时的热能变化",
-          "units": "c：J kg⁻¹ K⁻¹"
+          "meaning": "摄氏温度与开尔文温度",
+          "formula": "\\text{摄氏温度数值}=\\text{开尔文温度数值}-273.15",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>摄氏温度数值</mtext><mo>=</mo><mtext>开尔文温度数值</mtext><mo>−</mo><mn>273.15</mn></mrow></math>",
+          "book": 2,
+          "pages": [
+            5
+          ],
+          "chapter": "热学",
+          "order": 0,
+          "condition": "",
+          "keywords": "°C = K – 273.15 · Thermal physics"
         },
         {
-          "formula": "E = mL",
-          "meaning": "恒温相变；学校讲义扩展计算",
-          "units": "L：J kg⁻¹"
+          "meaning": "物体升温或降温时的热量",
+          "formula": "Q=mc\\Delta T",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>Q</mi><mo>=</mo><mi>m</mi><mi>c</mi><mi mathvariant=\"normal\">Δ</mi><mi>T</mi></mrow></math>",
+          "book": 2,
+          "pages": [
+            5
+          ],
+          "chapter": "热学",
+          "order": 1,
+          "condition": "物态不变",
+          "keywords": "Q = m c ΔT · 比热容 specific heat capacity · Thermal physics"
         },
         {
-          "formula": "p₁V₁ = p₂V₂",
-          "meaning": "固定质量气体、恒温条件",
-          "units": "压强与体积两边使用一致单位"
+          "meaning": "物态改变时的热量",
+          "formula": "Q=mL",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>Q</mi><mo>=</mo><mi>m</mi><mi>L</mi></mrow></math>",
+          "book": 2,
+          "pages": [
+            5,
+            34
+          ],
+          "chapter": "热学",
+          "order": 2,
+          "condition": "物态改变，温度恒定",
+          "keywords": "Q = m L · 比潜热 潜热 熔化 汽化 specific latent heat · Thermal physics"
         },
         {
-          "formula": "T/K = θ/°C + 273.15",
-          "meaning": "摄氏温度与绝对温度；按题目精度取值",
-          "units": "K"
+          "meaning": "物体的热容量",
+          "formula": "C=mc",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>C</mi><mo>=</mo><mi>m</mi><mi>c</mi></mrow></math>",
+          "book": 2,
+          "pages": [
+            31
+          ],
+          "chapter": "热学",
+          "order": 3,
+          "condition": "",
+          "keywords": "C = m c · Thermal physics"
+        },
+        {
+          "meaning": "按热容量求热量",
+          "formula": "Q=C\\Delta T",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>Q</mi><mo>=</mo><mi>C</mi><mi mathvariant=\"normal\">Δ</mi><mi>T</mi></mrow></math>",
+          "book": 2,
+          "pages": [
+            31
+          ],
+          "chapter": "热学",
+          "order": 4,
+          "condition": "物态不变",
+          "keywords": "Q = C ΔT · Thermal physics"
+        },
+        {
+          "meaning": "热传递中的能量守恒",
+          "formula": "Q_{\\text{放热物体}}=-Q_{\\text{吸热物体}}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>Q</mi><mtext>放热物体</mtext></msub><mo>=</mo><mo>−</mo><msub><mi>Q</mi><mtext>吸热物体</mtext></msub></mrow></math>",
+          "book": 2,
+          "pages": [
+            3
+          ],
+          "chapter": "热学",
+          "order": 6,
+          "condition": "与外界无热交换，Q 带正负号",
+          "keywords": "Q given off = – Q absorbed · Thermal physics"
+        },
+        {
+          "meaning": "玻意耳定律",
+          "formula": "P_1 V_1=P_2 V_2",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>P</mi><mn>1</mn></msub><msub><mi>V</mi><mn>1</mn></msub><mo>=</mo><msub><mi>P</mi><mn>2</mn></msub><msub><mi>V</mi><mn>2</mn></msub></mrow></math>",
+          "book": 2,
+          "pages": [
+            14
+          ],
+          "chapter": "气体",
+          "order": 7,
+          "condition": "一定质量的理想气体，温度不变",
+          "keywords": "P₁V₁ = P₂V₂ · Thermal physics"
+        },
+        {
+          "meaning": "查理定律",
+          "formula": "\\frac{V_1}{T_1}=\\frac{V_2}{T_2}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mfrac><msub><mi>V</mi><mn>1</mn></msub><msub><mi>T</mi><mn>1</mn></msub></mfrac><mo>=</mo><mfrac><msub><mi>V</mi><mn>2</mn></msub><msub><mi>T</mi><mn>2</mn></msub></mfrac></mrow></math>",
+          "book": 2,
+          "pages": [
+            14
+          ],
+          "chapter": "气体",
+          "order": 8,
+          "condition": "一定质量的理想气体，压强不变，T 用 K",
+          "keywords": "V₁/T₁ = V₂/T₂ · Thermal physics"
+        },
+        {
+          "meaning": "盖–吕萨克定律",
+          "formula": "\\frac{P_1}{T_1}=\\frac{P_2}{T_2}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mfrac><msub><mi>P</mi><mn>1</mn></msub><msub><mi>T</mi><mn>1</mn></msub></mfrac><mo>=</mo><mfrac><msub><mi>P</mi><mn>2</mn></msub><msub><mi>T</mi><mn>2</mn></msub></mfrac></mrow></math>",
+          "book": 2,
+          "pages": [
+            15
+          ],
+          "chapter": "气体",
+          "order": 9,
+          "condition": "一定质量的理想气体，体积不变，T 用 K",
+          "keywords": "P₁/T₁ = P₂/T₂ · Thermal physics"
+        },
+        {
+          "meaning": "综合气体定律",
+          "formula": "\\frac{P_1 V_1}{T_1}=\\frac{P_2 V_2}{T_2}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mfrac><mrow><msub><mi>P</mi><mn>1</mn></msub><msub><mi>V</mi><mn>1</mn></msub></mrow><msub><mi>T</mi><mn>1</mn></msub></mfrac><mo>=</mo><mfrac><mrow><msub><mi>P</mi><mn>2</mn></msub><msub><mi>V</mi><mn>2</mn></msub></mrow><msub><mi>T</mi><mn>2</mn></msub></mfrac></mrow></math>",
+          "book": 2,
+          "pages": [
+            15
+          ],
+          "chapter": "气体",
+          "order": 10,
+          "condition": "一定质量的理想气体，T 用 K",
+          "keywords": "P₁ V₁ / T₁ = P₂ V₂ / T₂ · Thermal physics"
+        },
+        {
+          "meaning": "密度",
+          "formula": "\\text{密度}=\\frac{\\text{质量}}{\\text{体积}}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>密度</mtext><mo>=</mo><mfrac><mtext>质量</mtext><mtext>体积</mtext></mfrac></mrow></math>",
+          "book": 2,
+          "pages": [
+            19
+          ],
+          "chapter": "热学",
+          "order": 11,
+          "condition": "",
+          "keywords": "density = mass / volume · Thermal physics"
         }
       ],
       "pitfalls": [
@@ -1363,29 +1954,153 @@ window.PHYSICS_CONTENT = {
       ],
       "formulas": [
         {
-          "formula": "v = fλ；T = 1/f",
-          "meaning": "波速、波长、频率、周期的联系",
-          "units": "v：m s⁻¹；f：Hz；λ：m；T：s"
+          "meaning": "周期与频率",
+          "formula": "f=\\frac{1}{T}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>f</mi><mo>=</mo><mfrac><mn>1</mn><mi>T</mi></mfrac></mrow></math>",
+          "book": 2,
+          "pages": [
+            4,
+            54
+          ],
+          "chapter": "波",
+          "order": 12,
+          "condition": "",
+          "keywords": "f = 1/T · Waves, light & sound"
         },
         {
-          "formula": "n = c/v",
-          "meaning": "介质折射率",
-          "units": "无单位"
+          "meaning": "波速",
+          "formula": "v=f\\lambda",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>v</mi><mo>=</mo><mi>f</mi><mi>λ</mi></mrow></math>",
+          "book": 2,
+          "pages": [
+            4,
+            54,
+            55
+          ],
+          "chapter": "波",
+          "order": 13,
+          "condition": "",
+          "keywords": "You MUST learn the equation v = f λ · Waves, light & sound"
         },
         {
-          "formula": "n = sin i / sin r",
-          "meaning": "从空气入射介质，空气折射率近似 1",
-          "units": "角度均相对于法线"
+          "meaning": "波通过狭缝时的衍射",
+          "formula": "\\text{比值}=\\frac{\\text{波长}}{\\text{缝宽}}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>比值</mtext><mo>=</mo><mfrac><mtext>波长</mtext><mtext>缝宽</mtext></mfrac></mrow></math>",
+          "book": 2,
+          "pages": [
+            59
+          ],
+          "chapter": "波",
+          "order": 14,
+          "condition": "",
+          "keywords": "ratio = size of wavelength / gap size. · Waves, light & sound"
         },
         {
-          "formula": "sin c₍critical₎ = 1/n",
-          "meaning": "介质射向空气时的临界角",
-          "units": "角度单位保持一致"
+          "meaning": "反射定律",
+          "formula": "i=r",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>i</mi><mo>=</mo><mi>r</mi></mrow></math>",
+          "book": 2,
+          "pages": [
+            59,
+            61
+          ],
+          "chapter": "波",
+          "order": 15,
+          "condition": "两个角都从法线量起",
+          "keywords": "angle i = angle r · Waves, light & sound"
         },
         {
-          "formula": "echo distance = vt/2",
-          "meaning": "回声走了往返路程",
-          "units": "m"
+          "meaning": "真空中的光波",
+          "formula": "c=\\lambda f",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>c</mi><mo>=</mo><mi>λ</mi><mi>f</mi></mrow></math>",
+          "book": 2,
+          "pages": [
+            61
+          ],
+          "chapter": "光学",
+          "order": 16,
+          "condition": "光在真空中传播",
+          "keywords": "c = λ f for light · Waves, light & sound"
+        },
+        {
+          "meaning": "介质的折射率",
+          "formula": "n=\\frac{c}{v}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>n</mi><mo>=</mo><mfrac><mi>c</mi><mi>v</mi></mfrac></mrow></math>",
+          "book": 2,
+          "pages": [
+            4,
+            62
+          ],
+          "chapter": "光学",
+          "order": 17,
+          "condition": "c 为真空光速，v 为介质中的光速",
+          "keywords": "n = c/v · refractive index · Waves, light & sound"
+        },
+        {
+          "meaning": "折射定律（用波速）",
+          "formula": "\\frac{v_1}{\\sin i}=\\frac{v_2}{\\sin r}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mfrac><msub><mi>v</mi><mn>1</mn></msub><mrow><mi>sin</mi><mo>⁡</mo><mi>i</mi></mrow></mfrac><mo>=</mo><mfrac><msub><mi>v</mi><mn>2</mn></msub><mrow><mi>sin</mi><mo>⁡</mo><mi>r</mi></mrow></mfrac></mrow></math>",
+          "book": 2,
+          "pages": [
+            4
+          ],
+          "chapter": "光学",
+          "order": 18,
+          "condition": "i 与 r 从法线量起",
+          "keywords": "Use the equation v1/sin i = v2/sin r. · Waves, light & sound"
+        },
+        {
+          "meaning": "折射定律（用折射率）",
+          "formula": "n_1\\sin\\theta_1=n_2\\sin\\theta_2",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>n</mi><mn>1</mn></msub><mi>sin</mi><mo>⁡</mo><msub><mi>θ</mi><mn>1</mn></msub><mo>=</mo><msub><mi>n</mi><mn>2</mn></msub><mi>sin</mi><mo>⁡</mo><msub><mi>θ</mi><mn>2</mn></msub></mrow></math>",
+          "book": 2,
+          "pages": [
+            62
+          ],
+          "chapter": "光学",
+          "order": 19,
+          "condition": "θ₁ 与 θ₂ 从法线量起",
+          "keywords": "n₁ sin θ₁ = n₂ sin θ₂ · 斯涅尔定律 Snell · Waves, light & sound"
+        },
+        {
+          "meaning": "从空气进入介质时的折射率",
+          "formula": "n=\\frac{\\sin i}{\\sin r}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>n</mi><mo>=</mo><mfrac><mrow><mi>sin</mi><mo>⁡</mo><mi>i</mi></mrow><mrow><mi>sin</mi><mo>⁡</mo><mi>r</mi></mrow></mfrac></mrow></math>",
+          "book": 2,
+          "pages": [
+            62
+          ],
+          "chapter": "光学",
+          "order": 20,
+          "condition": "入射一侧折射率取 1",
+          "keywords": "if n₁ is 1 … n = sin i / sin r · Waves, light & sound"
+        },
+        {
+          "meaning": "介质到空气的临界角",
+          "formula": "n=\\frac{1}{\\sin\\theta_c}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>n</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mi>sin</mi><mo>⁡</mo><msub><mi>θ</mi><mi>c</mi></msub></mrow></mfrac></mrow></math>",
+          "book": 2,
+          "pages": [
+            63
+          ],
+          "chapter": "光学",
+          "order": 21,
+          "condition": "光从介质射向空气，空气折射率取 1",
+          "keywords": "n = 1/sin θc · 全反射 critical angle · Waves, light & sound"
+        },
+        {
+          "meaning": "凸透镜焦距",
+          "formula": "f=\\frac{uv}{u+v}",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>f</mi><mo>=</mo><mfrac><mrow><mi>u</mi><mi>v</mi></mrow><mrow><mi>u</mi><mo>+</mo><mi>v</mi></mrow></mfrac></mrow></math>",
+          "book": 2,
+          "pages": [
+            90
+          ],
+          "chapter": "光学",
+          "order": 22,
+          "condition": "u 为物距，v 为像距（实像）",
+          "given": true,
+          "keywords": "Q8: The equation is: f = uv/(u+v) · Waves, light & sound"
         }
       ],
       "pitfalls": [
@@ -1438,29 +2153,226 @@ window.PHYSICS_CONTENT = {
       ],
       "formulas": [
         {
-          "formula": "Q = It；V = E/Q",
-          "meaning": "电荷量与电势差",
-          "units": "Q：C；I：A；V：V"
+          "meaning": "电流",
+          "formula": "I = Q/t",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>I</mi><mo>=</mo><mfrac><mi>Q</mi><mi>t</mi></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            26
+          ],
+          "chapter": "电路与电磁学",
+          "order": 0,
+          "condition": "",
+          "keywords": "I = Q/t · Electricity & magnetism"
         },
         {
+          "meaning": "电势差",
+          "formula": "V = E/Q",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>V</mi><mo>=</mo><mfrac><mi>E</mi><mi>Q</mi></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            28
+          ],
+          "chapter": "电路与电磁学",
+          "order": 1,
+          "condition": "",
+          "keywords": "V = Energy/Charge = E/Q · 电压 voltage potential difference · Electricity & magnetism"
+        },
+        {
+          "meaning": "欧姆定律",
           "formula": "V = IR",
-          "meaning": "电阻 R = V/I",
-          "units": "R：Ω"
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>V</mi><mo>=</mo><mi>I</mi><mi>R</mi></mrow></math>",
+          "book": 3,
+          "pages": [
+            29
+          ],
+          "chapter": "电路与电磁学",
+          "order": 2,
+          "condition": "温度不变的欧姆导体",
+          "keywords": "V = I R · R=V/I Ohm · Electricity & magnetism"
         },
         {
-          "formula": "Rₛ = R₁ + R₂；1/Rₚ = 1/R₁ + 1/R₂",
-          "meaning": "两个电阻的串联与并联等效电阻",
-          "units": "Ω"
+          "meaning": "导线的电阻",
+          "formula": "R = ρL/A",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>R</mi><mo>=</mo><mfrac><mrow><mi>ρ</mi><mi>L</mi></mrow><mi>A</mi></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            31
+          ],
+          "chapter": "电路与电磁学",
+          "order": 3,
+          "condition": "粗细均匀的导线",
+          "keywords": "R = ρ L/A · 电阻率 resistivity · Electricity & magnetism"
         },
         {
-          "formula": "P = VI = I²R；E = VIt",
-          "meaning": "电功率与电能",
-          "units": "W；J"
+          "meaning": "串联电压",
+          "formula": "V_total = V₁ + V₂",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>V</mi><mrow><mi mathvariant=\"normal\">t</mi><mi mathvariant=\"normal\">o</mi><mi mathvariant=\"normal\">t</mi><mi mathvariant=\"normal\">a</mi><mi mathvariant=\"normal\">l</mi></mrow></msub><mo>=</mo><msub><mi>V</mi><mn>1</mn></msub><mo>+</mo><msub><mi>V</mi><mn>2</mn></msub></mrow></math>",
+          "book": 3,
+          "pages": [
+            30
+          ],
+          "chapter": "电路与电磁学",
+          "order": 4,
+          "condition": "两个元件串联",
+          "keywords": "In Series: Vtotal = V₁ + V₂ · Electricity & magnetism"
         },
         {
-          "formula": "Vₚ/Vₛ = Nₚ/Nₛ；VₚIₚ = VₛIₛ",
-          "meaning": "理想变压器匝数比与功率关系",
-          "units": "V、A；匝数无单位"
+          "meaning": "串联电流",
+          "formula": "I_total = I₁ = I₂",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>I</mi><mrow><mi mathvariant=\"normal\">t</mi><mi mathvariant=\"normal\">o</mi><mi mathvariant=\"normal\">t</mi><mi mathvariant=\"normal\">a</mi><mi mathvariant=\"normal\">l</mi></mrow></msub><mo>=</mo><msub><mi>I</mi><mn>1</mn></msub><mo>=</mo><msub><mi>I</mi><mn>2</mn></msub></mrow></math>",
+          "book": 3,
+          "pages": [
+            30
+          ],
+          "chapter": "电路与电磁学",
+          "order": 5,
+          "condition": "两个元件串联",
+          "keywords": "In Series: Itotal = I₁ = I₂ · Electricity & magnetism"
+        },
+        {
+          "meaning": "串联总电阻",
+          "formula": "Rₑ = R₁ + R₂ + …",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>R</mi><mi mathvariant=\"normal\">e</mi></msub><mo>=</mo><msub><mi>R</mi><mn>1</mn></msub><mo>+</mo><msub><mi>R</mi><mn>2</mn></msub><mo>+</mo><mo>⋯</mo></mrow></math>",
+          "book": 3,
+          "pages": [
+            30
+          ],
+          "chapter": "电路与电磁学",
+          "order": 6,
+          "condition": "",
+          "keywords": "In Series: Rₑ = R₁ + R₂ + … · Electricity & magnetism"
+        },
+        {
+          "meaning": "并联电压",
+          "formula": "V_total = V₁ = V₂",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>V</mi><mrow><mi mathvariant=\"normal\">t</mi><mi mathvariant=\"normal\">o</mi><mi mathvariant=\"normal\">t</mi><mi mathvariant=\"normal\">a</mi><mi mathvariant=\"normal\">l</mi></mrow></msub><mo>=</mo><msub><mi>V</mi><mn>1</mn></msub><mo>=</mo><msub><mi>V</mi><mn>2</mn></msub></mrow></math>",
+          "book": 3,
+          "pages": [
+            30
+          ],
+          "chapter": "电路与电磁学",
+          "order": 7,
+          "condition": "两条并联支路",
+          "keywords": "In Parallel: Vtotal = V₁ = V₂ · Electricity & magnetism"
+        },
+        {
+          "meaning": "并联电流",
+          "formula": "I_total = I₁ + I₂",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>I</mi><mrow><mi mathvariant=\"normal\">t</mi><mi mathvariant=\"normal\">o</mi><mi mathvariant=\"normal\">t</mi><mi mathvariant=\"normal\">a</mi><mi mathvariant=\"normal\">l</mi></mrow></msub><mo>=</mo><msub><mi>I</mi><mn>1</mn></msub><mo>+</mo><msub><mi>I</mi><mn>2</mn></msub></mrow></math>",
+          "book": 3,
+          "pages": [
+            30
+          ],
+          "chapter": "电路与电磁学",
+          "order": 8,
+          "condition": "两条并联支路",
+          "keywords": "In Parallel: Itotal = I₁ + I₂ · Electricity & magnetism"
+        },
+        {
+          "meaning": "并联总电阻",
+          "formula": "1/Rₑ = 1/R₁ + 1/R₂ + …",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mfrac><mn>1</mn><msub><mi>R</mi><mi mathvariant=\"normal\">e</mi></msub></mfrac><mo>=</mo><mfrac><mn>1</mn><msub><mi>R</mi><mn>1</mn></msub></mfrac><mo>+</mo><mfrac><mn>1</mn><msub><mi>R</mi><mn>2</mn></msub></mfrac><mo>+</mo><mo>⋯</mo></mrow></math>",
+          "book": 3,
+          "pages": [
+            30
+          ],
+          "chapter": "电路与电磁学",
+          "order": 9,
+          "condition": "",
+          "keywords": "In Parallel: 1/Rₑ = 1/R₁ + 1/R₂ + … · Electricity & magnetism"
+        },
+        {
+          "meaning": "两个电阻并联",
+          "formula": "R_total = R₁R₂/(R₁ + R₂)",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>R</mi><mrow><mi mathvariant=\"normal\">t</mi><mi mathvariant=\"normal\">o</mi><mi mathvariant=\"normal\">t</mi><mi mathvariant=\"normal\">a</mi><mi mathvariant=\"normal\">l</mi></mrow></msub><mo>=</mo><mfrac><mrow><msub><mi>R</mi><mn>1</mn></msub><msub><mi>R</mi><mn>2</mn></msub></mrow><mrow><msub><mi>R</mi><mn>1</mn></msub><mo>+</mo><msub><mi>R</mi><mn>2</mn></msub></mrow></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            3
+          ],
+          "chapter": "电路与电磁学",
+          "order": 10,
+          "condition": "",
+          "keywords": "Rtotal = R₁R₂/(R₁ + R₂) · Electricity & magnetism"
+        },
+        {
+          "meaning": "功率",
+          "formula": "功率 = 做的功 / 所用时间 = 转移的总能量 / 所用时间",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>功率</mtext><mo>=</mo><mfrac><mtext>做的功</mtext><mtext>所用时间</mtext></mfrac><mo>=</mo><mfrac><mtext>转移的总能量</mtext><mtext>所用时间</mtext></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            37
+          ],
+          "chapter": "电路与电磁学",
+          "order": 11,
+          "condition": "",
+          "keywords": "Power = work done / time taken = total energy transferred / time taken · Electricity & magnetism"
+        },
+        {
+          "meaning": "电功率",
+          "formula": "P = IV = I²R = V²/R",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>P</mi><mo>=</mo><mi>I</mi><mi>V</mi><mo>=</mo><msup><mi>I</mi><mn>2</mn></msup><mi>R</mi><mo>=</mo><mfrac><msup><mi>V</mi><mn>2</mn></msup><mi>R</mi></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            37
+          ],
+          "chapter": "电路与电磁学",
+          "order": 12,
+          "condition": "电阻元件",
+          "keywords": "Power P = IV = I²R = V²/R · Electricity & magnetism"
+        },
+        {
+          "meaning": "电能",
+          "formula": "E = IVt",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>E</mi><mo>=</mo><mi>I</mi><mi>V</mi><mi>t</mi></mrow></math>",
+          "book": 3,
+          "pages": [
+            3,
+            37
+          ],
+          "chapter": "电路与电磁学",
+          "order": 13,
+          "condition": "电流、电压恒定",
+          "keywords": "P = I V and E = I V t · Electricity & magnetism"
+        },
+        {
+          "meaning": "电热水壶加热",
+          "formula": "IVt = mcΔT",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>I</mi><mi>V</mi><mi>t</mi><mo>=</mo><mi>m</mi><mi>c</mi><mi mathvariant=\"normal\">Δ</mi><mi>T</mi></mrow></math>",
+          "book": 3,
+          "pages": [
+            42
+          ],
+          "chapter": "电路与电磁学",
+          "order": 14,
+          "condition": "假设电能全部用于加热水",
+          "keywords": "Electrical energy = thermal energy supplied to the water; I V t = m c ∆T · Electricity & magnetism"
+        },
+        {
+          "meaning": "变压器电压与匝数",
+          "formula": "V_S/V_P = N_S/N_P",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mfrac><msub><mi>V</mi><mi mathvariant=\"normal\">S</mi></msub><msub><mi>V</mi><mi mathvariant=\"normal\">P</mi></msub></mfrac><mo>=</mo><mfrac><msub><mi>N</mi><mi mathvariant=\"normal\">S</mi></msub><msub><mi>N</mi><mi mathvariant=\"normal\">P</mi></msub></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            57
+          ],
+          "chapter": "电路与电磁学",
+          "order": 15,
+          "condition": "理想变压器",
+          "keywords": "V_S/V_P = N_S/N_P · Electricity & magnetism"
+        },
+        {
+          "meaning": "变压器输入与输出功率",
+          "formula": "I_P V_P = I_S V_S",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>I</mi><mi mathvariant=\"normal\">P</mi></msub><msub><mi>V</mi><mi mathvariant=\"normal\">P</mi></msub><mo>=</mo><msub><mi>I</mi><mi mathvariant=\"normal\">S</mi></msub><msub><mi>V</mi><mi mathvariant=\"normal\">S</mi></msub></mrow></math>",
+          "book": 3,
+          "pages": [
+            57
+          ],
+          "chapter": "电路与电磁学",
+          "order": 16,
+          "condition": "理想变压器",
+          "keywords": "I_P V_P = I_S V_S; 100% efficient · Electricity & magnetism"
         }
       ],
       "pitfalls": [
@@ -1514,29 +2426,108 @@ window.PHYSICS_CONTENT = {
       ],
       "formulas": [
         {
-          "formula": "neutrons = A − Z",
-          "meaning": "质量数减去原子序数",
-          "units": "粒子数"
+          "meaning": "质量数",
+          "formula": "A = 质子数 + 中子数",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>A</mi><mo>=</mo><mtext>质子数</mtext><mo>+</mo><mtext>中子数</mtext></mrow></math>",
+          "book": 3,
+          "pages": [
+            62
+          ],
+          "chapter": "原子核",
+          "order": 17,
+          "condition": "",
+          "keywords": "A = Mass number (number of protons + neutrons) · Nuclear & space physics"
         },
         {
-          "formula": "Rₛource = Rₘeasured − Rᵦackground",
-          "meaning": "先扣除本底计数率",
-          "units": "counts s⁻¹ 或 counts min⁻¹"
-        },
-        {
-          "formula": "remaining fraction = (½)ⁿ",
-          "meaning": "经过 n 个半衰期后的剩余比例",
-          "units": "无单位"
-        },
-        {
+          "meaning": "圆轨道速率",
           "formula": "v = 2πr/T",
-          "meaning": "近圆轨道的平均速率，r 从轨道中心量",
-          "units": "m s⁻¹"
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>v</mi><mo>=</mo><mfrac><mrow><mn>2</mn><mi>π</mi><mi>r</mi></mrow><mi>T</mi></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            86
+          ],
+          "chapter": "天体与宇宙",
+          "order": 18,
+          "condition": "圆轨道",
+          "keywords": "v = 2πr/T · Nuclear & space physics"
         },
         {
-          "formula": "v = H₀d",
-          "meaning": "哈勃关系，采用匹配的距离和速率单位",
-          "units": "H₀ 可用 s⁻¹ 或 km s⁻¹ Mpc⁻¹"
+          "meaning": "向心力",
+          "formula": "F_c = mv²/r",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>F</mi><mi mathvariant=\"normal\">c</mi></msub><mo>=</mo><mfrac><mrow><mi>m</mi><msup><mi>v</mi><mn>2</mn></msup></mrow><mi>r</mi></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            92
+          ],
+          "chapter": "天体与宇宙",
+          "order": 19,
+          "condition": "圆周运动",
+          "keywords": "Fc = mv²/r · Nuclear & space physics"
+        },
+        {
+          "meaning": "万有引力",
+          "formula": "F_g = GMm/r²",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>F</mi><mi mathvariant=\"normal\">g</mi></msub><mo>=</mo><mfrac><mrow><mi>G</mi><mi>M</mi><mi>m</mi></mrow><msup><mi>r</mi><mn>2</mn></msup></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            92
+          ],
+          "chapter": "天体与宇宙",
+          "order": 20,
+          "condition": "r 为两天体中心的距离",
+          "keywords": "Fg = GMm/r²; distance between the centres of mass · Nuclear & space physics"
+        },
+        {
+          "meaning": "引力作用下的圆轨道速率",
+          "formula": "v = √(GM/r)",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>v</mi><mo>=</mo><msqrt><mfrac><mrow><mi>G</mi><mi>M</mi></mrow><mi>r</mi></mfrac></msqrt></mrow></math>",
+          "book": 3,
+          "pages": [
+            92
+          ],
+          "chapter": "天体与宇宙",
+          "order": 21,
+          "condition": "引力提供向心力",
+          "keywords": "v = √(GM/r) · Nuclear & space physics"
+        },
+        {
+          "meaning": "引力场强度",
+          "formula": "g = F/m",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>g</mi><mo>=</mo><mfrac><mi>F</mi><mi>m</mi></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            95
+          ],
+          "chapter": "天体与宇宙",
+          "order": 22,
+          "condition": "",
+          "keywords": "g = F/m · Nuclear & space physics"
+        },
+        {
+          "meaning": "哈勃常数",
+          "formula": "H₀ = v/d",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>=</mo><mfrac><mi>v</mi><mi>d</mi></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            5
+          ],
+          "chapter": "天体与宇宙",
+          "order": 23,
+          "condition": "",
+          "keywords": "H₀ = v/d · Nuclear & space physics"
+        },
+        {
+          "meaning": "估算宇宙年龄",
+          "formula": "d/v = 1/H₀",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mfrac><mi>d</mi><mi>v</mi></mfrac><mo>=</mo><mfrac><mn>1</mn><msub><mi>H</mi><mn>0</mn></msub></mfrac></mrow></math>",
+          "book": 3,
+          "pages": [
+            98
+          ],
+          "chapter": "天体与宇宙",
+          "order": 24,
+          "condition": "假设宇宙匀速膨胀",
+          "keywords": "d/v = 1/H₀ in the main text · 哈勃常数 age of the universe · Nuclear & space physics"
         }
       ],
       "pitfalls": [
@@ -1590,24 +2581,45 @@ window.PHYSICS_CONTENT = {
       ],
       "formulas": [
         {
-          "formula": "mean = sum of readings / number of readings",
-          "meaning": "合理处理异常值后计算平均",
-          "units": "与读数相同"
+          "meaning": "测量的百分误差",
+          "formula": "百分误差 = 测量误差 / 公认值 × 100%",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>百分误差</mtext><mo>=</mo><mfrac><mtext>测量误差</mtext><mtext>公认值</mtext></mfrac><mo>×</mo><mn>100</mn><mi mathvariant=\"normal\">%</mi></mrow></math>",
+          "book": 1,
+          "pages": [
+            17
+          ],
+          "chapter": "测量与图像",
+          "order": 0,
+          "condition": "原页示例取误差大小",
+          "keywords": "Percentage Error = (error in measurement / accepted value) x 100 · Practical skills"
         },
         {
-          "formula": "T = time for N oscillations / N",
-          "meaning": "减小单次计时的相对影响",
-          "units": "s"
+          "meaning": "图像的斜率",
+          "formula": "斜率 = Δy / Δx",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>斜率</mtext><mo>=</mo><mfrac><mrow><mi mathvariant=\"normal\">Δ</mi><mi>y</mi></mrow><mrow><mi mathvariant=\"normal\">Δ</mi><mi>x</mi></mrow></mfrac></mrow></math>",
+          "book": 1,
+          "pages": [
+            3,
+            22,
+            25
+          ],
+          "chapter": "测量与图像",
+          "order": 1,
+          "condition": "在同一直线上取两点",
+          "keywords": "gradient = rise / run; Δy/Δx · Practical skills"
         },
         {
-          "formula": "gradient = Δy/Δx",
-          "meaning": "在最佳拟合线上取大三角形",
-          "units": "纵轴单位 ÷ 横轴单位"
-        },
-        {
-          "formula": "percentage uncertainty = uncertainty/value × 100%",
-          "meaning": "给定或合理估计不确定度后的相对大小",
-          "units": "%"
+          "meaning": "重复计时的不确定度估计",
+          "formula": "计时不确定度 ≈ 极差 / 2",
+          "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mo>±</mo><mfrac><mtext>极差</mtext><mn>2</mn></mfrac></mrow></math>",
+          "book": 1,
+          "pages": [
+            107
+          ],
+          "chapter": "测量与图像",
+          "order": 2,
+          "condition": "多次计时",
+          "keywords": "Time: from a range of measurements, ± range/2 · Practical skills"
         }
       ],
       "pitfalls": [
@@ -11460,7 +12472,7 @@ function overview() {
 }
 function topicsPage(){return pageIntro('知识地图','选择主题，查看概念、公式、例题与易错点。')+'<div class="toolbar"><input class="search-input" id="topic-search" type="search" aria-label="搜索知识主题" placeholder="搜索概念，例如：波、能量、electricity…"><span class="field-hint">点击知识卡展开讲解</span></div><div id="topic-results" class="topic-grid all-topics">'+C.topics.map(topicCard).join('')+'</div><div class="wide-note">这是考前重点梳理，不是完整课程替代品。学校最终考试范围请以学校通知为准；实验技能适用于各主题。</div>';}
 function showTopic(id){const t=topic(id);if(!t)return;
-document.getElementById('dialog-body').innerHTML='<div class="dialog-title-en">'+esc(t.en)+'</div><h2 class="dialog-title" id="dialog-title">'+esc(t.title)+'</h2><p class="dialog-summary">'+esc(t.summary)+'</p>'+t.points.map(p=>'<div class="point"><h3>'+esc(p.title)+'</h3><p>'+esc(p.body)+'</p></div>').join('')+'<h3 class="dialog-section">随手记住的公式</h3>'+t.formulas.map(f=>'<div class="formula-row"><b>'+esc(f.formula)+'</b><span>'+esc(f.meaning)+'</span><small>'+esc(f.units)+'</small></div>').join('')+'<h3 class="dialog-section">这些地方最容易失分</h3><ul class="pitfalls">'+t.pitfalls.map(p=>'<li>'+esc(p)+'</li>').join('')+'</ul><h3 class="dialog-section">跟着做一题</h3><div class="worked"><p>'+esc(t.example.question)+'</p><details><summary>想好了吗？展开步骤与答案</summary><ol>'+t.example.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol><div class="answer">'+esc(t.example.answer)+'</div></details></div><div class="dialog-actions">'+button(state.read.includes(id)?'✓ 已标记读过':'标记已读','read','secondary','data-id="'+id+'"')+button('从课堂学懂这个主题','topic-learn','secondary','data-id="'+id+'"')+button('做这个主题的 '+topicCount(id)+' 道题 →','topic-quiz','primary','data-id="'+id+'"')+'</div><div class="dialog-sources">依据：'+t.sourceRefs.map(esc).join('；')+'</div>';
+document.getElementById('dialog-body').innerHTML='<div class="dialog-title-en">'+esc(t.en)+'</div><h2 class="dialog-title" id="dialog-title">'+esc(t.title)+'</h2><p class="dialog-summary">'+esc(t.summary)+'</p>'+t.points.map(p=>'<div class="point"><h3>'+esc(p.title)+'</h3><p>'+esc(p.body)+'</p></div>').join('')+topicFormulas(t)+'<h3 class="dialog-section">这些地方最容易失分</h3><ul class="pitfalls">'+t.pitfalls.map(p=>'<li>'+esc(p)+'</li>').join('')+'</ul><h3 class="dialog-section">跟着做一题</h3><div class="worked"><p>'+esc(t.example.question)+'</p><details><summary>想好了吗？展开步骤与答案</summary><ol>'+t.example.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol><div class="answer">'+esc(t.example.answer)+'</div></details></div><div class="dialog-actions">'+button(state.read.includes(id)?'✓ 已标记读过':'标记已读','read','secondary','data-id="'+id+'"')+button('从课堂学懂这个主题','topic-learn','secondary','data-id="'+id+'"')+button('做这个主题的 '+topicCount(id)+' 道题 →','topic-quiz','primary','data-id="'+id+'"')+'</div><div class="dialog-sources">依据：'+t.sourceRefs.map(esc).join('；')+'</div>';
 document.getElementById('topic-dialog').showModal();}
 function startQuiz(ids,mode='mixed'){
 let pool=(ids?C.questions.filter(q=>ids.includes(q.id)):C.questions.slice()).filter(inScope);
@@ -11488,8 +12500,93 @@ function mistakesPage(){
  return '<article class="mistake-card learning-card"><div class="mistake-body"><span class="eyebrow">'+esc(labels[item.source])+' · '+esc(topic(item.topic)?.title||'基础工具')+'</span><h3>'+esc(q.question)+'</h3><p>'+esc(item.lastCorrect?'已订正，待间隔复核':'需要订正')+' · 已记录 '+esc(item.attempts)+' 次作答'+(item.firstCorrect===null?' · 旧版首答未知':'')+'</p>'+lessonActions(item)+(learning?'<label class="cause-control">错因<select data-learning-key="'+esc(item.key)+'"><option value="">尚未分类</option>'+Object.entries(learning.causes).map(([key,label])=>'<option value="'+key+'" '+(item.cause===key?'selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+'</div>'+(item.source==='practice'?button('独立重做 →','single-quiz','secondary','data-id="'+esc(q.id)+'"'):item.source==='exam'?'<a class="btn secondary" href="#exam?review='+esc(q.id)+'">查看试卷与自评 →</a>':'<a class="btn secondary" href="'+esc(learning?.lessonLink(item)||'#learn')+'">回课堂检验 →</a>')+'</article>';
  }).join('')+'</div>':'<div class="empty-state"><div class="empty-symbol">✓</div><h2>目前没有待复核记录。</h2><p>先独立完成一轮练习或阶段检验，再决定下一步学什么。</p><a class="btn primary" href="#practice">开始练习 →</a></div>');
 }
-function formulasPage(){return pageIntro('公式速查','按物理量、公式或主题查找，可打印整套公式卡。')+'<div class="toolbar"><input class="search-input" id="formula-search" type="search" aria-label="搜索公式" placeholder="搜索公式、物理量或主题…"><button class="print-button" data-action="print">打印公式卡 ↗</button></div><div class="formula-grid" id="formula-results">'+formulaCards('')+'</div>';}
-function formulaCards(search){return C.topics.flatMap(t=>t.formulas.map(f=>({t,f}))).filter(({t,f})=>(t.title+' '+t.en+' '+f.formula+' '+f.meaning+' '+f.units).toLowerCase().includes(search.toLowerCase())).map(({t,f})=>'<article class="formula-card"><span class="formula-topic">'+esc(t.title)+'</span><h3>'+esc(f.formula)+'</h3><div class="meaning">'+esc(f.meaning)+'</div><p>'+esc(f.units)+'</p></article>').join('')||'<p class="field-hint">没有匹配的公式，换一个关键词试试。</p>';}
+const formulaBookNames = ['测量与力学', '热学、波与光', '电学、原子与太空'];
+const bookletFormulas = C.topics.flatMap(t => t.formulas)
+  .sort((a, b) => a.book - b.book || a.order - b.order);
+
+function selectedFormulaBook() {
+  const params = new URLSearchParams(location.hash.split('?')[1] || '');
+  const book = Number(params.get('book'));
+  return [1, 2, 3].includes(book) ? book : 1;
+}
+
+function formulaEntry(f) {
+  const source = `第 ${f.book} 册 · PDF 第 ${f.pages.join('、')} 页`;
+  return `<article class="formula-card">
+    <h3>${esc(f.meaning)}</h3>
+    <div class="book-equation">${f.math}</div>
+    ${f.condition ? `<p>${esc(f.condition)}</p>` : ''}
+    <small>${esc(source)}${f.given ? ' · 原题给式' : ''}</small>
+  </article>`;
+}
+
+function topicFormulas(t) {
+  if (!t.formulas.length) return '';
+  return '<details class="formula-chapter"><summary>查看讲义公式</summary><div class="topic-formulas">' +
+    t.formulas.map(formulaEntry).join('') + '</div></details>';
+}
+
+function formulasPage() {
+  const selected = selectedFormulaBook();
+  const bookLinks = formulaBookNames.map((name, i) => {
+    const book = i + 1;
+    return `<a href="#formulas?book=${book}" ${selected === book ? 'aria-current="page"' : ''}>
+      <strong>第 ${book} 册</strong><span>${name}</span></a>`;
+  }).join('');
+  return pageIntro('公式速查','按学校的三本 Pre-Q 讲义查公式。页码按 PDF 阅读器显示。') +
+    `<nav class="formula-books" aria-label="选择物理讲义">${bookLinks}</nav>
+    <div class="toolbar formula-toolbar">
+      <input class="search-input" id="formula-search" type="search" aria-label="搜索公式" placeholder="搜索三册公式，如「折射率」">
+      <button class="print-button" data-action="print">打印三册公式</button>
+    </div><div id="formula-results">${formulaCards('')}</div>`;
+}
+
+function formulaSearchText(value) {
+  return value.normalize('NFKC').toLowerCase().replace(/[\s_{}]/g, '');
+}
+
+function formulaCards(search, printAll = false) {
+  const query = formulaSearchText(search);
+  const book = selectedFormulaBook();
+  const sections = [];
+  for (const [index, bookName] of formulaBookNames.entries()) {
+    const current = index + 1;
+    if (!query && !printAll && current !== book) continue;
+    const chapters = new Map();
+    for (const f of bookletFormulas) {
+      if (f.book !== current) continue;
+      const fields = [f.meaning, f.formula, f.chapter, f.keywords, bookName, f.condition];
+      if (query && !fields.some(field => formulaSearchText(field).includes(query))) continue;
+      if (!chapters.has(f.chapter)) chapters.set(f.chapter, []);
+      chapters.get(f.chapter).push(f);
+    }
+    if (!chapters.size) continue;
+    const heading = query || printAll ? `<h2>第 ${current} 册 · ${bookName}</h2>` : '';
+    const groups = Array.from(chapters, ([title, rows], i) => {
+      const open = query || printAll || i === 0;
+      return `<details class="formula-chapter"${open ? ' open' : ''}><summary>${esc(title)}</summary>
+        <div class="formula-grid">${rows.map(formulaEntry).join('')}</div></details>`;
+    }).join('');
+    sections.push(`<section class="formula-volume" aria-label="第 ${current} 册">${heading}${groups}</section>`);
+  }
+  return sections.join('') || '<p class="field-hint">没有匹配的公式，换一个关键词试试。</p>';
+}
+
+// Browser print and the page button both print every booklet, including folded chapters.
+let formulaScreen = null;
+window.addEventListener('beforeprint', () => {
+  if (route !== 'formulas' || formulaScreen !== null) return;
+  const results = document.getElementById('formula-results');
+  formulaScreen = Array.from(results.childNodes);
+  results.innerHTML = formulaCards('', true);
+});
+window.addEventListener('afterprint', () => {
+  if (formulaScreen === null) return;
+  const results = document.getElementById('formula-results');
+  if (results) results.replaceChildren(...formulaScreen);
+  formulaScreen = null;
+});
+
 function papersPage(){return pageIntro('历年真题','按年份、考季和试卷编号找题，再用对应评分标准核对。')+
 '<section class="paper-hero"><div><p class="eyebrow">CAMBRIDGE IGCSE · PHYSICS 0625</p><h2>PapaCambridge 历年真题库</h2><p>试卷、评分标准与考官报告都在来源站查找。点击后在新标签页打开，本站保留你的练习记录。</p></div><a class="btn primary" href="'+pastPapersURL+'" target="_blank" rel="noopener noreferrer">打开 0625 真题库 ↗</a></section>'+
 '<div class="paper-cards">'+[['选择题','Paper 1 / Paper 2','每题先写出判断依据；计算题保留单位。做完再一起核对，回看每个干扰项为什么错。'],['结构化理论题','Paper 3 / Paper 4','按题目分值分点写答案。计算写公式、代入和单位；解释题用物理关系连接原因与结果。'],['实验与替代实验','Paper 5 / Paper 6','识别自变量、因变量和控制变量。画图写坐标与单位；改进方法要对应具体误差。']].map(([title,sub,body])=>'<article class="source-card"><h3>'+title+'</h3><strong>'+sub+'</strong><p>'+body+'</p></article>').join('')+'</div>'+
