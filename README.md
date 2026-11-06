@@ -15,3 +15,5 @@
 内容依据与科学来源见网页“资料与来源”。
 
 本版改进：44节分范围课程、36道阶段检验、图像与仪器读数题、14组连贯模拟考大题、随机且刷新保持的选项、标准作图与统一错题反馈。课程无需账号；本版尚未接入账号或云同步。
+
+界面设计参考 Damir Sokolovsky 的 [unslop](https://github.com/heydamir/unslop)（[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)）。
